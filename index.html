@@ -130,8 +130,21 @@
 
             <label for="height">Tinggi (cm)</label>
             <input type="number" id="height" required>
-            <p>Hasil BMI: <span id="bmi-result">0</span></p>
-            <p>Kategori: <span id="bmi-category"></span></p>
+
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <p>Hasil BMI:</p>
+                            <h3><span id="bmi-result">0</span></h3>
+                            <p>Kategori: <span id="bmi-category"></span></p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-tint"></i>
+                        </div>
+                </div>
+            </div>
+            <br>
 
             <label for="age">Usia (tahun)</label>
             <input type="number" id="age" required>
@@ -266,7 +279,19 @@
                 <b>Olahraga:</b> ${exercise === 0 ? 'Ya' : 'Tidak'} (Skor: ${exercise}) <br>
                 <b>Sayur/Buah:</b> ${fruitsVeggies === 0 ? 'Setiap Hari' : 'Jarang'} (Skor: ${fruitsVeggies}) <br>
                 <b>Total Skor:</b> ${totalScore} <br>
-                <b>Risiko Diabetes:</b> ${risk}
+                <br>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="small-box bg-info">
+                            <div class="inner">
+                                <p>Resiko Diabetes</p>
+                                <h3>${risk}</h3>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-tint"></i>
+                            </div>
+                    </div>
+                </div>
             `;
         }
 
