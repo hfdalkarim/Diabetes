@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" sizes="57x57" href="images/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="images/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="images/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="images/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="images/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="images/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="images/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="images/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
+    <link rel="manifest" href="images/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes Risk Test</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(173, 216, 230, 0.9), #4682b4);
+            background-size: cover;
+            background-position: center;
+
+        }
+        .form-container {
+            background-color: #62c1e6;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        .form-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .btn-custom {
+            margin-top: 20px;
+        }
+        .form-step {
+            display: none;
+        }
+        .form-step.active {
+            display: block;
+        }
+        .progress-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .progress-step {
+            flex: 1;
+            position: relative;
+            text-align: center;
+        }
+        .progress-step::before {
+            content: attr(data-label);
+            display: block;
+            position: relative;
+            margin-bottom: 8px;
+            font-size: 12px;
+            color: #fffdfd;
+        }
+        .progress-step::after {
+            content: '';
+            display: block;
+            width: 25px;
+            height: 25px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 50%;
+            z-index: 2;
+            position: relative;
+        }
+        .progress-step.active::after {
+            background-color: #0d6efd;
+        }
+        .progress-step.completed::after {
+            background-color: #28a745;
+        }
+        .progress-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: #ccc;
+            z-index: 1;
+        }
+        .progress-step:not(:last-child)::before {
+            right: 0;
+        }
+        .progress-step.active ~ .progress-line {
+            background-color: #0d6efd;
+        }
+        .progress-step.completed ~ .progress-line {
+            background-color: #28a745;
+        }
+    </style>
+    <style>
+        .form-control,
+        .form-select {
+            width: 100%;
+            height: 45px; /* Sesuaikan tinggi */
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .mb-3 {
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body class="active-preloader-ovh">
+
+    <div class="preloader home-two">
+        <div class="spinner"></div>
+    </div><!-- /.preloader -->
+    <header class="header header-home-two">
+        <nav class="navbar navbar-default header-navigation stricky">
+            <div class="thm-container clearfix">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".main-navigation"
+                        aria-expanded="false"><i class="fa fa-bars"></i></button>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse main-navigation mainmenu " id="main-nav-bar">
+
+                    <ul class="nav navbar-nav navigation-box">
+                        <li class="current">
+                            <a href="index.html">Beranda</a>
+                        </li>
+                        <li> <a href="about.html">Tentang Kami</a> </li>
+                        <li>
+                            <a href="resiko.html">Cek Risiko</a>
+                        </li>
+                        <li>
+                            <a href="edukasi.html">Edukasi Diabetes</a>
+                        </li>
+                        <li>
+                            <a href="testimoni.html">Testimoni</a>
+                        </li>
+                        <li>
+                            <a href="referensi.html">Referensi</a>
+                        </li>
+                        
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container -->
+        </nav>
+    </header><!-- /.header -->
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="form-container">
+                    <img src="diabetes.png" alt="Logo" class="d-block mx-auto mb-4" style="width: 100px;">
+                    <h1 class="form-title">Diabetes Risk Detection</h1>
+
+                    <div class="progress-container">
+                        <div class="progress-step" data-label="Personal" id="progress-step-1"></div>
+                        
+                        <div class="progress-step" data-label="Tubuh" id="progress-step-2"></div>
+                        
+                        <div class="progress-step" data-label="BMI" id="progress-step-3"></div>
+                        
+                        <div class="progress-step" data-label="Riwayat" id="progress-step-4"></div>
+                        
+                        <div class="progress-step" data-label="LifeStyle" id="progress-step-5"></div>
+                    </div>
+
+
+                    <form id="multiStepForm">
+                        <!-- Step 1: Personal -->
+                        <div class="form-step active">
+                            <h1>Step 1: Personal</h1>
+                            <div class="mb-3">
+                                <label for="nama" class="form-label"><h1>Nama</h1></label>
+                                <input type="text" id="nama" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="alamat" class="form-label"><h1>Alamat</h1></label>
+                                <input type="text" id="alamat" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="nohp" class="form-label"><h1>No. HP</h1></label>
+                                <input type="text" id="nohp" class="form-control" required>
+                            </div>
+                            <div class="text-end">
+                                <button type="button" class="btn btn-primary btn-next"><h1>Lanjut</h1></button>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Tubuh -->
+                        <div class="form-step">
+                            <h1>Step 2: Tubuh</h1>
+                            <div class="mb-3">
+                                <label for="age" class="form-label"><h1>Usia (tahun)</h1></label>
+                                <input type="number" id="age" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="gender" class="form-label"><h1>Jenis Kelamin</h1></label>
+                                <select id="gender" class="form-select" required>
+                                    <option value="">Pilih...</option>
+                                    <option value="laki">Laki-laki</option>
+                                    <option value="perempuan">Perempuan</option>
+                                </select>
+                              </div>
+                            <div class="mb-3">
+                                <label for="waist" class="form-label"><h1>Lingkar Pinggang</h1></label>
+                                <select id="waist" class="form-select" required>
+                                    <option value="">Pilih...</option>
+                                    <option value="1">&lt;80cm</option>
+                                    <option value="2">80-88cm</option>
+                                    <option value="3">89-93cm</option>
+                                    <option value="4">94-102cm</option>
+                                    <option value="5">&gt;102cm</option>
+                                </select>
+                            </div>
+                            <div class="text-end">
+                                <button type="button" class="btn btn-secondary btn-prev"><h1>Kembali</h1></button>
+                                <button type="button" class="btn btn-primary btn-next"><h1>Lanjut</h1></button>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Kalkulator BMI -->
+                        <div class="form-step">
+                            <h1>Step 3: Kalkulator BMI</h1>
+                            <div class="mb-3">
+                                <label for="weight" class="form-label"><h1>Berat Badan (kg)</h1></label>
+                                <input type="number" id="weight" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="height" class="form-label"><h1>Tinggi (cm)</h1></label>
+                                <input type="number" id="height" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <div class="d-flex align-items-center mb-3">
+                                    <p class="me-2- mb-0"><h1>BMI : <span id="bmi-result"> 0 </h></p>
+                                </div>
+                                <p><h1>Kategori: <span id="bmi-category"></span></h1></p>
+                            </div>
+                            <div class="text-end">
+                                <button type="button" class="btn btn-secondary btn-prev"><h1>Kembali</h1></button>
+                                <button type="button" class="btn btn-primary btn-next"><h1>Lanjut</h1></button>
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Riwayat -->
+                        <div class="form-step">
+                            <h1>Step 4: Riwayat</h1>
+                            <div class="mb-3">
+                                <label for="highSugar" class="form-label"><h1>Kadar Gula Darah Tinggi?</h1></label>
+                                <select id="highSugar" class="form-select" required>
+                                    <option value="">Pilih...</option>
+                                    <option value="5">Ya</option>
+                                    <option value="0">Tidak</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="familyHistory1" class="form-label"><h1>Diabetes pada Keluarga Besar?</h1></label>
+                                <select id="familyHistory1" class="form-select" required>
+                                    <option value="">Pilih...</option>
+                                    <option value="3">Ya</option>
+                                    <option value="0">Tidak</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="familyHistory2" class="form-label"><h1>Diabetes pada Keluarga Inti?</h1></label>
+                                <select id="familyHistory2" class="form-select" required>
+                                    <option value="">Pilih...</option>
+                                    <option value="5">Ya</option>
+                                    <option value="0">Tidak</option>
+                                </select>
+                            </div>
+                            <div class="text-end">
+                                <button type="button" class="btn btn-secondary btn-prev"><h1>Kembali</h1></button>
+                                <button type="button" class="btn btn-primary btn-next"><h1>Lanjut</h1></button>
+                            </div>
+                        </div>
+
+                        <!-- Step 5: Gaya Hidup -->
+                        <div class="form-step">
+                            <h3>Step 5: LifeStyle</h3>
+                            <div class="mb-3">
+                                <label for="exercise" class="form-label"><h1>Olahraga 30 Menit per Hari?</h1></label>
+                                <select id="exercise" class="form-select" required>
+                                    <option value="">Pilih...</option>
+                                    <option value="0">Ya</option>
+                                    <option value="2">Tidak</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="fruitsVeggies" class="form-label"><h1>Konsumsi sayur dan buah?</h1></label>
+                                <select id="fruitsVeggies" class="form-select" required>
+                                    <option value="">Pilih...</option>
+                                    <option value="0">Setiap Hari</option>
+                                    <option value="1">Jarang</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                    <label for="bloodPressure" class="form-label"><h1>Obat Darah Tinggi?</h1></label>
+                                    <select id="bloodPressure" class="form-select" required>
+                                        <option value="">Pilih...</option>
+                                        <option value="2">Ya</option>
+                                        <option value="0">Tidak</option>
+                                    </select>
+                                </div>
+                            <div class="text-end">
+                                <button type="button" class="btn btn-secondary btn-prev"><h1>Kembali</h1></button>
+                                <button type="button" class="btn btn-success" onclick="calculateRisk()"><h1>Hitung Risiko</h1></button>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="result" class="result mt-4"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const steps = document.querySelectorAll('.form-step');
+        const progressSteps = document.querySelectorAll('.progress-step');
+        let currentStep = 0;
+
+        const showStep = (index) => {
+            steps.forEach((step, idx) => {
+                step.classList.toggle('active', idx === index);
+                progressSteps[idx].classList.toggle('active', idx === index);
+                progressSteps[idx].classList.toggle('completed', idx < index);
+            });
+        };
+
+        document.querySelectorAll('.btn-next').forEach((btn) =>
+            btn.addEventListener('click', () => {
+                if (currentStep < steps.length - 1) currentStep++;
+                showStep(currentStep);
+            })
+        );
+
+        document.querySelectorAll('.btn-prev').forEach((btn) =>
+            btn.addEventListener('click', () => {
+                if (currentStep > 0) currentStep--;
+                showStep(currentStep);
+            })
+        );
+
+        showStep(currentStep);
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.3/purify.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <script>
+      var category = "";
+  
+      function getWaistSize(waist) {
+          switch(waist) {
+              case 1: return "<80cm";
+              case 2: return "80-88cm";
+              case 3: return "89-93cm";
+              case 4: return "94-102cm";
+              case 5: return ">102cm";
+              default: return "Pilih...";
+          }
+      }
+  
+      function calculateBMI() {
+          var weight = parseFloat(document.getElementById("weight").value);
+          var height = parseFloat(document.getElementById("height").value);
+  
+          if (isNaN(weight) || isNaN(height) || weight <= 0 || height <= 0) {
+              document.getElementById("bmi-result").textContent = "--";
+              return;
+          }
+  
+          height = height / 100; // Convert to meters
+          var bmi = weight / (height * height);
+  
+          if (bmi < 17.0) category = "Terlalu Kurus";
+          else if (bmi >= 17.0 && bmi <= 18.4) category = "Kurus";
+          else if (bmi >= 18.5 && bmi <= 25.0) category = "Normal";
+          else if (bmi >= 25.1 && bmi <= 27.0) category = "Gemuk";
+          else if (bmi > 27) category = "Terlalu Gemuk";
+  
+          document.getElementById("bmi-result").textContent = bmi.toFixed(2);
+          document.getElementById("bmi-category").textContent = category;
+      }
+  
+      function calculateRisk() {
+          const nama = document.getElementById('nama').value;
+          const alamat = document.getElementById('alamat').value;
+          const nohp =  parseInt(document.getElementById('nohp').value);
+          const age = parseInt(document.getElementById('age').value);
+          const weight = parseFloat(document.getElementById('weight').value);
+          const height = parseFloat(document.getElementById('height').value) / 100;
+          const gender = document.getElementById('gender').value;
+          const waist = parseInt(document.getElementById('waist').value);
+          const familyHistory1 = parseInt(document.getElementById('familyHistory1').value);
+          const familyHistory2 = parseInt(document.getElementById('familyHistory2').value);
+          const highSugar = parseInt(document.getElementById('highSugar').value);
+          const bloodPressure = parseInt(document.getElementById('bloodPressure').value);
+          const exercise = parseInt(document.getElementById('exercise').value);
+          const fruitsVeggies = parseInt(document.getElementById('fruitsVeggies').value);
+  
+          // Check for missing values before calculation
+          if (!nama || isNaN(age) || isNaN(weight) || isNaN(height) || gender === "" || waist === "" || familyHistory1 === "" || familyHistory2 === "" || highSugar === "" || bloodPressure === "" || exercise === "") {
+              alert("Please fill in all fields.");
+              return;
+          }
+  
+          // Calculate BMI if not already calculated
+          if (isNaN(document.getElementById('bmi-result').textContent) || document.getElementById('bmi-result').textContent === "--") {
+              calculateBMI();
+          }
+  
+          let agePoint = 0;
+          if (age >= 45 && age <= 54) agePoint = 2;
+          else if (age >= 55 && age <= 64) agePoint = 3;
+          else if (age > 64) agePoint = 4;
+  
+          const bmi = weight / (height * height);
+          let bmiPoint = 0;
+          if (bmi >= 25 && bmi < 30) bmiPoint = 1;
+          else if (bmi >= 30) bmiPoint = 3;
+  
+          let waistPoint = waist;
+          if (gender === 'perempuan') {
+              if (waist === 2) waistPoint = 3;
+              if (waist > 2) waistPoint = 4;
+          }
+  
+          const totalScore = agePoint + bmiPoint + waistPoint + familyHistory1 + familyHistory2 + highSugar + bloodPressure + exercise + fruitsVeggies;
+  
+          let risk = "";
+          if (totalScore < 7) risk = "1% (Sangat kecil)";
+          else if (totalScore >= 7 && totalScore <= 11) risk = "4% (Kecil)";
+          else if (totalScore >= 12 && totalScore <= 14) risk = "17% (Sedang)";
+          else if (totalScore >= 15 && totalScore <= 20) risk = "33% (Tinggi)";
+          else risk = "50% (Sangat Tinggi)";
+  
+          document.getElementById('result').innerHTML = `
+          <style>
+              *,
+              *::after,
+              *::before{
+                  padding: 0;
+                  margin: 0;
+                  box-sizing: border-box;
+              }
+
+              :root{
+                  --blue-color: #0c2f54;
+                  --dark-color: #535b61;
+                  --white-color: #fff;
+              }
+
+              ul{
+                  list-style-type: none;
+              }
+              ul li{
+                  margin: 2px 0;
+              }
+
+              /* text colors */
+              .text-dark{
+                  color: var(--dark-color);
+              }
+              .text-blue{
+                  color: var(--blue-color);
+              }
+              .text-end{
+                  text-align: right;
+              }
+              .text-center{
+                  text-align: center;
+              }
+              .text-start{
+                  text-align: left;
+              }
+              .text-bold{
+                  font-weight: 700;
+              }
+              /* hr line */
+              .hr{
+                  height: 1px;
+                  background-color: rgba(0, 0, 0, 0.1);
+              }
+              /* border-bottom */
+              .border-bottom{
+                  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+              }
+
+              body{
+                  font-family: 'Poppins', sans-serif;
+                  color: var(--dark-color);
+                  font-size: 14px;
+              }
+              .invoice-wrapper{
+                  min-height: 100vh;
+                  background-color: rgba(0, 0, 0, 0.1);
+                  padding-top: 20px;
+                  padding-bottom: 20px;
+              }
+              .invoice{
+                  max-width: 850px;
+                  margin-right: auto;
+                  margin-left: auto;
+                  background-color: var(--white-color);
+                  padding: 70px;
+                  border: 1px solid rgba(0, 0, 0, 0.2);
+                  border-radius: 5px;
+                  min-height: 920px;
+              }
+              .invoice-head-top-left img{
+                  width: 130px;
+              }
+              .invoice-head-top-right h3{
+                  font-weight: 500;
+                  font-size: 27px;
+                  color: var(--blue-color);
+              }
+              .invoice-head-middle, .invoice-head-bottom{
+                  padding: 16px 0;
+              }
+              .invoice-body{
+                  border: 1px solid rgba(0, 0, 0, 0.1);
+                  border-radius: 4px;
+                  overflow: hidden;
+              }
+              .invoice-body table{
+                  border-collapse: collapse;
+                  border-radius: 4px;
+                  width: 100%;
+              }
+              .invoice-body table td, .invoice-body table th{
+                  padding: 12px;
+              }
+              .invoice-body table tr{
+                  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+              }
+              .invoice-body table thead{
+                  background-color: rgba(0, 0, 0, 0.02);
+              }
+              .invoice-body-info-item{
+                  display: grid;
+                  grid-template-columns: 80% 20%;
+              }
+              .invoice-body-info-item .info-item-td{
+                  padding: 12px;
+                  background-color: rgba(0, 0, 0, 0.02);
+              }
+              .invoice-foot{
+                  padding: 30px 0;
+              }
+              .invoice-foot p{
+                  font-size: 12px;
+              }
+              .invoice-btns{
+                  margin-top: 20px;
+                  display: flex;
+                  justify-content: center;
+              }
+              .invoice-btn{
+                  padding: 3px 9px;
+                  color: var(--dark-color);
+                  font-family: inherit;
+                  border: 1px solid rgba(0, 0, 0, 0.1);
+                  cursor: pointer;
+              }
+
+              .invoice-head-top, .invoice-head-middle, .invoice-head-bottom{
+                  display: grid;
+                  grid-template-columns: repeat(2, 1fr);
+                  padding-bottom: 10px;
+              }
+
+              @media screen and (max-width: 992px){
+                  .invoice{
+                      padding: 40px;
+                  }
+              }
+
+              @media screen and (max-width: 576px){
+                  .invoice-head-top, .invoice-head-middle, .invoice-head-bottom{
+                      grid-template-columns: repeat(1, 1fr);
+                  }
+                  .invoice-head-bottom-right{
+                      margin-top: 12px;
+                      margin-bottom: 12px;
+                  }
+                  .invoice *{
+                      text-align: left;
+                  }
+                  .invoice{
+                      padding: 28px;
+                  }
+              }
+
+              .overflow-view{
+                  overflow-x: scroll;
+              }
+              .invoice-body{
+                  min-width: 600px;
+              }
+
+              @media print{
+                  .print-area{
+                      visibility: visible;
+                      width: 100%;
+                      position: absolute;
+                      left: 0;
+                      top: 0;
+                      overflow: hidden;
+                  }
+
+                  .overflow-view{
+                      overflow-x: hidden;
+                  }
+
+                  .invoice-btns{
+                      display: none;
+                  }
+              }
+          </style>
+            <div class = "invoice-wrapper" id = "print-area">
+                <div class = "invoice">
+                    <div class = "invoice-container">
+                        <div class = "invoice-head">
+                            <div class = "invoice-head-top">
+                                <div class = "invoice-head-top-left text-start">
+                                    <img src = "diabetes.png">
+                                </div>
+                                <div class = "invoice-head-top-right text-end">
+                                    <h3>Hasil Test</h3>
+                                </div>
+                            </div>
+                            <div class = "hr"></div>
+                            <div class = "hr"></div>
+                            <div class = "invoice-head-bottom">
+                                <div  = "invoiceclass-head-bottom-left">
+                                    <ul>
+                                        <li class = 'text-bold'>Kepada :</li>
+                                        <li><b>Nama:</b> ${nama}<br></li>
+                                        <li><b>Alamat:</b> ${alamat}<br></li>
+                                        <li><b>Gender:</b> ${gender === 'laki' ? 'Laki-laki' : 'Perempuan'} <br></li>
+                                        <li><b>Berat Badan:</b> ${weight} kg <br></li>
+                                        <li><b>Tinggi:</b> ${height * 100} cm <br></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class = "overflow-view">
+                            <div class = "invoice-body">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <td class = "text-bold">No.</td>
+                                            <td class = "text-bold">Deskripsi</td>
+                                            <td class = "text-bold">Hasil</td>
+                                            <td class = "text-bold">Keterangan</td>
+                                            <td class = "text-bold">Skor</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Umur</td>
+                                            <td>${age}</td>
+                                            <td> Tahun</td>
+                                            <td class = "text-end">${agePoint}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>BMI</td>
+                                            <td>${bmi.toFixed(2)}</td>
+                                            <td>${category}</td>
+                                            <td class = "text-end">${bmiPoint}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Lingkar Pinggang</td>
+                                            <td>${getWaistSize(waist)}</td>
+                                            <td>${gender === 'laki' ? 'Laki-laki' : 'Perempuan'}</td>
+                                            <td class = "text-end">${waist}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>Keluarga Besar terkena Diabetes?</td>
+                                            <td>${familyHistory1 === 3 ? 'Ya' : 'Tidak'}</td>
+                                            <td>-</td>
+                                            <td class = "text-end">${familyHistory1}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td>Keluarga inti terkena Diabetes?</td>
+                                            <td>${familyHistory2 === 5 ? 'Ya' : 'Tidak'}</td>
+                                            <td>-</td>
+                                            <td class = "text-end">${familyHistory2}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>6</td>
+                                            <td>Kadar Gula Tinggi</td>
+                                            <td>${highSugar === 5 ? 'Ya' : 'Tidak'}</td>
+                                            <td>-</td>
+                                            <td class = "text-end">${highSugar}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>7</td>
+                                            <td>Konsumsi Obat Darah Tinggi</td>
+                                            <td>${bloodPressure === 2 ? 'Ya' : 'Tidak'}</td>
+                                            <td>-</td>
+                                            <td class = "text-end">${bloodPressure}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>8</td>
+                                            <td>Olahraga 30 Menit per Hari</td>
+                                            <td>${exercise === 0 ? 'Ya' : 'Tidak'}</td>
+                                            <td>-</td>
+                                            <td class = "text-end">${exercise}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>9</td>
+                                            <td>Konsumsi sayur dan buah?</td>
+                                            <td>${fruitsVeggies === 0 ? 'Setiap Hari' : 'Jarang'}</td>
+                                            <td>-</td>
+                                            <td class = "text-end">${fruitsVeggies}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class = "invoice-body-bottom">
+                                    <div class = "invoice-body-info-item border-bottom">
+                                        <div class = "info-item-td text-end text-bold">Skor Total:</div>
+                                        <div class = "info-item-td text-end">${totalScore}</div>
+                                    </div>
+                                    <div class = "invoice-body-info-item border-bottom">
+                                        <div class = "info-item-td text-end text-bold">Resiko Diabetes :</div>
+                                        <div class = "info-item-td text-end">${risk}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <p>
+                                <span>Ketentuan Perhitungan Total Skor Akhir Risiko Kemungkinan Diabetes:</span>
+                            </p>
+                            <table>
+                                <tr>
+                                    <td>&lt; 7</td>
+                                    <td>: </td>
+                                    <td> 1% (Sangat kecil)</td>
+                                </tr>
+                                <tr>
+                                    <td>7 &#8722; 11</td>
+                                    <td>: </td>
+                                    <td> 4% (Kecil)</td>
+                                </tr>
+                                <tr>
+                                    <td>12 &#8722; 14</td>
+                                    <td>: </td>
+                                    <td> 17% (Sedang)</td>
+                                </tr>
+                                <tr>
+                                    <td>15 &#8722; 20</td>
+                                    <td>: </td>
+                                    <td> 33% (Tinggi)</td>
+                                </tr>
+                                <tr>
+                                    <td>&gt; 20</td>
+                                    <td>: </td>
+                                    <td> 50% (Sangat tinggi)</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class = "invoice-foot text-center">
+                            <p><span>NOTE:&nbsp;</span>Terima Kasih Telah Melakukan Test Resiko Diabetes.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      `;
+    }
+  
+      document.getElementById("weight").addEventListener("input", calculateBMI);
+      document.getElementById("height").addEventListener("input", calculateBMI);
+
+      async function downloadPDF() {
+            const { jsPDF } = window.jspdf; // Ambil jsPDF dari library
+            const pdf = new jsPDF(); // Buat instance jsPDF
+
+            // Ambil elemen dengan ID 'result'
+            const content = document.getElementById('result');
+
+            // Gunakan html2canvas untuk merender HTML sebagai gambar
+            html2canvas(content).then(canvas => {
+                // Ambil ukuran gambar dari canvas
+                const imgData = canvas.toDataURL('image/png');
+                const imgWidth = 210; // Lebar halaman A4 dalam mm
+                const imgHeight = (canvas.height * imgWidth) / canvas.width; // Menyesuaikan tinggi gambar
+
+                // Tambahkan gambar ke PDF
+                pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+
+                // Simpan PDF
+                pdf.save('result.pdf');
+            });
+        }
+
+      function resetForm() {
+        document.getElementById('riskForm').reset();
+        document.getElementById('result').innerHTML = '';
+      }
+  </script>
+  
+
+    <section class="site-footer home-two" style="background-color: rgb(18,157,232);">
+        <div class="footer-top">
+            <div class="thm-container">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6 col-xs-12 ">
+                        <div class="footer-widget about-widget">
+                            <a href="index.html" class="logo-img"><img src="images/logo-2-2.png" alt="Awesome Image"/></a>
+                            <p>Website ini bertujuan untuk memberikan edukasi dan tes risiko dini penyakit Diabetes.</p>
+                            <p>Website ini tidak menggantikan saran medis profesional. Konsultasikan hasil tes 
+                                dengan dokter. 
+                            </p>
+                            <p>Terimakasih Telah Berkunjung</p>
+                        </div><!-- /.footer-widget about-widget -->
+                    </div><!-- /.col-md-4 -->
+                    <div class="col-md-2 col-sm-6 col-xs-12 ">
+                        <div class="footer-widget links-widget quick-links-widget">
+                            <div class="title">
+                                <h3>Referensi Links</h3>
+                            </div><!-- /.title -->
+                            <ul class="links-list">
+                                <li><a href="https://www.who.int/health-topics/diabetes"><i class="fa fa-angle-double-right"></i> WHO</a></li>
+                                <li><a href="https://www.idf.org/"><i class="fa fa-angle-double-right"></i> IDF</a></li>
+                                <li><a href="https://kemkes.go.id/id/home"><i class="fa fa-angle-double-right"></i> Kemenkes</a></li>
+                            </ul>
+                        </div><!-- /.footer-widget links-widget -->
+                    </div><!-- /.col-md-4 -->
+                </div><!-- /.row -->
+            </div><!-- /.thm-container -->
+        </div><!-- /.footer-top -->
+        <div class="footer-bottom text-center">
+            <div class="thm-container">
+                <p>Copyrights © 2025 Diabates Risk Detection. All Rights Reserved. </p>
+            </div><!-- /.thm-container -->
+        </div><!-- /.footer-bottom -->
+    </section><!-- /.site-footer -->
+
+    <div class="search_area zoom-anim-dialog mfp-hide" id="test-search">
+        <div class="search_box_inner">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button"><i class="bitmex-icon-search"></i></button>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="scroll-to-top scroll-to-target home-two" data-target="html"><i class="fa fa-angle-up"></i></div>
+
+    <script src="js/jquery.js"></script>
+
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-select.min.js"></script>
+    <script src="js/jquery.validate.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/isotope.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/waypoints.min.js"></script>
+    <script src="js/jquery.counterup.min.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="plugins/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script src="js/custom.js"></script>
+    <script src="js/booking-form-config.js"></script>
+
+</body>
+
+</html>
