@@ -1349,7 +1349,7 @@ body.active-preloader-ovh {
   text-align: center;
   display: inline-block;
   vertical-align: middle;
-  color: #ffffff;
+  color: #0ae1fd;
   text-transform: uppercase;
   font-size: 16px;
   font-family: "Oxygen-Bold";
@@ -1358,7 +1358,7 @@ body.active-preloader-ovh {
   -webkit-transition: all .4s ease;
   -o-transition: all .4s ease;
   transition: all .4s ease;
-  border: 2px solid #00cfeb;
+  border: 2px solid #00e1ff;
   -webkit-animation-delay: 2s;
   animation-delay: 2s;
 }
@@ -1403,11 +1403,11 @@ body.active-preloader-ovh {
 }
 
 .slider-home-three .content a.banner-btn {
-  background: #94BE16;
+  background: #00e1ff;
   text-align: center;
   display: inline-block;
   vertical-align: middle;
-  color: #FFFFFF;
+  color: #00ffff;
   text-transform: uppercase;
   font-size: 16px;
   font-family: "Oxygen-Bold";
@@ -1458,7 +1458,7 @@ body.active-preloader-ovh {
 }
 
 .slider-home-four .content a.banner-btn {
-  background: #fff;
+  background: #00e1ff;
   text-align: center;
   display: inline-block;
   vertical-align: middle;
