@@ -160,9 +160,6 @@
                             <a href="edukasi.html">Edukasi Diabetes</a>
                         </li>
                         <li>
-                            <a href="testimoni.html">Testimoni</a>
-                        </li>
-                        <li>
                             <a href="referensi.html">Referensi</a>
                         </li>
                         
@@ -328,8 +325,8 @@
                                     </select>
                                 </div>
                             <div class="text-end">
-                                <button type="button" class="btn btn-secondary btn-prev"><h1>Kembali</h1></button>
-                                <button type="button" class="btn btn-success" onclick="calculateRisk()"><h1>Hitung Risiko</h1></button>
+                                <button type="button" id="downloadBtn"class="btn btn-secondary btn-prev" onclick="downloadPDF()" style="display: none;"><h1>Download PDF</h1></button>
+                                <button type="button" class="btn btn-success" onclick="calculateRisk()"><h1>Hitung Risiko</h1></button>  
                             </div>
                         </div>
                     </form>
@@ -376,6 +373,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     
     <script>
+        async function downloadPNG() {
+    const content = document.getElementById('result');
+
+    html2canvas(content).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+
+        // Buat elemen <a> untuk mengunduh gambar
+        const link = document.createElement('a');
+        link.href = imgData;
+        link.download = 'result.png';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    });
+}
+
       var category = "";
   
       function getWaistSize(waist) {
@@ -412,6 +425,7 @@
       }
   
       function calculateRisk() {
+          document.getElementById("downloadBtn").style.display = "block";
           const nama = document.getElementById('nama').value;
           const alamat = document.getElementById('alamat').value;
           const nohp =  parseInt(document.getElementById('nohp').value);
